@@ -1,0 +1,27 @@
+# Agent definition for Agent Builder. The runtime builds the graph from this file.
+# Edit it in Agent Builder, or by hand: after changing a prompt or skill file, run
+# `agent-builder lock` to record the new hashes, then `agent-builder check`.
+apiVersion: agentbuilder.ravl.io/v1
+kind: Agent
+runtime: '>=1.0,<2'
+metadata:
+  name: card-help
+  description: ''
+limits:
+  max_steps: 25
+nodes:
+  assistant:
+    type: llm
+    model:
+      provider: anthropic
+      name: claude-opus-5-5
+      max_tokens: 16000
+    prompt: prompts/assistant.md
+edges:
+- from: START
+  to: assistant
+- from: assistant
+  to: END
+integrity:
+  prompts:
+    prompts/assistant.md: 1ed54b1186a5723a905b91d49a2543ec2625463a67ed6c154c1a8e03aaeebb02

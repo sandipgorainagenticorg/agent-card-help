@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "."
+  ],
+  "graphs": {
+    "card-help": "agent_builder_runtime.studio:graph"
+  },
+  "env": ".env",
+  "python_version": "3.12"
+}
