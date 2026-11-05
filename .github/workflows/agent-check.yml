@@ -1,6 +1,6 @@
 # Required check on every PR into dev. The image build runs `agent-builder check` and
 # `agent-builder test`, so an invalid agent.yaml fails here.
-# Pin third-party actions to a full commit SHA before use (the tags below are placeholders).
+# Actions are pinned to full commit SHAs; the comment gives the release. Update them together.
 name: agent-check
 on:
   pull_request:
@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Pin by digest. Update when the platform team releases a new runtime.
-      RUNTIME_IMAGE: ghcr.io/sagorain/agent-builder-runtime@sha256:sha256:439febdf6733abf65c96eeead9c854970714ad3a7f72372c1972f3a00e72031e
+      RUNTIME_IMAGE: ghcr.io/sandipgorainagenticorg/agent-builder-runtime@sha256:439febdf6733abf65c96eeead9c854970714ad3a7f72372c1972f3a00e72031e
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -27,7 +27,7 @@ jobs:
             --build-arg AGENT_BUILDER_RUNTIME_IMAGE="$RUNTIME_IMAGE" \
             -t agent:${{ github.sha }} .
       - name: Scan the image
-        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           image-ref: agent:${{ github.sha }}
           severity: CRITICAL,HIGH

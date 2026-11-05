@@ -1,0 +1,4 @@
+# Agent changes need the agent reviewers. Workflow changes need platform engineering,
+# so nobody can weaken approval-guard or agent-check inside an agent PR.
+*            @sandipgorainagenticorg/agent-reviewers
+/.github/    @sandipgorainagenticorg/platform-engineering
